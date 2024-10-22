@@ -20,7 +20,12 @@ with st.sidebar:
                             'Parkinsons Prediction'],
                            menu_icon='hospital-fill',
                            icons=['activity', 'heart', 'person'],
-                           default_index=0)
+                           default_index=0,
+                            
+                        #    styles={
+                        #        "nav-link-selected": {"background-color": "red", "color": "white"},  # Selected menu style
+                        #    }
+                           )
     
 if selected == 'Diabetes Prediction':
     # page title
@@ -58,20 +63,26 @@ if selected == 'Diabetes Prediction':
     # creating a button for Prediction
 
     if st.button('Diabetes Test Result'):
+        if all([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]):
+            try:
+                # Convert inputs to floats and check if they are valid numbers
+                user_input = [float(Pregnancies), float(Glucose), float(BloodPressure), float(SkinThickness),
+                            float(Insulin), float(BMI), float(DiabetesPedigreeFunction), float(Age)]
 
-        user_input = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,
-                      BMI, DiabetesPedigreeFunction, Age]
+                # Prediction using the diabetes model
+                diab_prediction = diabetes_model.predict([user_input])
 
-        user_input = [float(x) for x in user_input]
+                # Display the result
+                if diab_prediction[0] == 1:
+                    diab_diagnosis = 'The person is diabetic'
+                else:
+                    diab_diagnosis = 'The person is not diabetic'
 
-        diab_prediction = diabetes_model.predict([user_input])
-
-        if diab_prediction[0] == 1:
-            diab_diagnosis = 'The person is diabetic'
+                st.success(diab_diagnosis)
+            except ValueError:st.error("Please ensure that all inputs are valid numbers.")
         else:
-            diab_diagnosis = 'The person is not diabetic'
-
-    st.success(diab_diagnosis)
+            st.error("Please fill in all the fields.")
+    
 
 
 # Heart Disease Prediction Page
@@ -127,19 +138,29 @@ if selected == 'Heart Disease Prediction':
     # creating a button for Prediction
 
     if st.button('Heart Disease Test Result'):
+    # Check if all input fields are filled
+        if all([age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]):
+            try:
+                # Convert inputs to floats and check if they are valid numbers
+                user_input = [float(age), float(sex), float(cp), float(trestbps), float(chol),
+                            float(fbs), float(restecg), float(thalach), float(exang),
+                            float(oldpeak), float(slope), float(ca), float(thal)]
 
-        user_input = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
+                # Prediction using the heart disease model
+                heart_prediction = heart_disease_model.predict([user_input])
 
-        user_input = [float(x) for x in user_input]
+                # Display the result
+                if heart_prediction[0] == 1:
+                    heart_diagnosis = 'The person is having heart disease'
+                else:
+                    heart_diagnosis = 'The person does not have any heart disease'
 
-        heart_prediction = heart_disease_model.predict([user_input])
-
-        if heart_prediction[0] == 1:
-            heart_diagnosis = 'The person is having heart disease'
+                st.success(heart_diagnosis)
+            except ValueError:
+                st.error("Please ensure that all inputs are valid numbers.")
         else:
-            heart_diagnosis = 'The person does not have any heart disease'
+            st.error("Please fill in all the fields.")
 
-    st.success(heart_diagnosis)
 
 # Parkinson's Prediction Page
 if selected == "Parkinsons Prediction":
@@ -220,18 +241,29 @@ if selected == "Parkinsons Prediction":
 
     # creating a button for Prediction    
     if st.button("Parkinson's Test Result"):
+        # Check if all input fields are filled
+        if all([fo, fhi, flo, Jitter_percent, Jitter_Abs,
+                RAP, PPQ, DDP, Shimmer, Shimmer_dB, APQ3, APQ5,
+                APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]):
+            try:
+                # Convert inputs to floats and check if they are valid numbers
+                user_input = [float(fo), float(fhi), float(flo), float(Jitter_percent), float(Jitter_Abs),
+                            float(RAP), float(PPQ), float(DDP), float(Shimmer), float(Shimmer_dB),
+                            float(APQ3), float(APQ5), float(APQ), float(DDA), float(NHR),
+                            float(HNR), float(RPDE), float(DFA), float(spread1), float(spread2),
+                            float(D2), float(PPE)]
 
-        user_input = [fo, fhi, flo, Jitter_percent, Jitter_Abs,
-                      RAP, PPQ, DDP,Shimmer, Shimmer_dB, APQ3, APQ5,
-                      APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]
+                # Prediction using the Parkinson's model
+                parkinsons_prediction = parkinsons_model.predict([user_input])
 
-        user_input = [float(x) for x in user_input]
+                # Display the result
+                if parkinsons_prediction[0] == 1:
+                    parkinsons_diagnosis = "The person has Parkinson's disease"
+                else:
+                    parkinsons_diagnosis = "The person does not have Parkinson's disease"
 
-        parkinsons_prediction = parkinsons_model.predict([user_input])
-
-        if parkinsons_prediction[0] == 1:
-            parkinsons_diagnosis = "The person has Parkinson's disease"
+                st.success(parkinsons_diagnosis)
+            except ValueError:
+                st.error("Please ensure that all inputs are valid numbers.")
         else:
-            parkinsons_diagnosis = "The person does not have Parkinson's disease"
-
-    st.success(parkinsons_diagnosis)
+            st.error("Please fill in all the fields.")
