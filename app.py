@@ -5,11 +5,11 @@ from streamlit_option_menu import option_menu
 
 # loading the saved models
 
-diabetes_model = pickle.load(open(r'C:\\Users\\dnyan\\OneDrive\\Desktop\\projects\\HCI PROJECT\\saved_models\\diabetes_model.sav','rb'))
+diabetes_model = pickle.load(open(r'C:\\Users\\dnyan\\OneDrive\\Desktop\\projects\\HCI PROJECT\\diabetes_model.sav','rb'))
 
-heart_disease_model = pickle.load(open(r'C:\\Users\\dnyan\\OneDrive\\Desktop\\projects\\HCI PROJECT\\saved_models\\heart_disease_model.sav','rb'))
+heart_disease_model = pickle.load(open(r'C:\\Users\\dnyan\\OneDrive\\Desktop\\projects\\HCI PROJECT\\heart_disease_model.sav','rb'))
 
-parkinsons_model = pickle.load(open(r'C:\\Users\\dnyan\\OneDrive\\Desktop\\projects\\HCI PROJECT\\saved_models\\parkinsons_model.sav','rb'))
+parkinsons_model = pickle.load(open(r'C:\\Users\\dnyan\\OneDrive\\Desktop\\projects\\HCI PROJECT\\parkinsons_model.sav','rb'))
 
 # sidebar for navigation
 with st.sidebar:
